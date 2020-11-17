@@ -16,6 +16,9 @@ kp = 1
 ki = 0.01
 kd = 1
 
+old_error = 0
+Int = 0
+
 odom = Odometry()
 scan = LaserScan()
 
@@ -67,6 +70,7 @@ def scanCallBack(msg):
 # TIMER - Control Loop ----------------------------------------------
 def timerCallBack(event):
     global kp, ki, kd, kp_ang, ki_ang, kd_ang
+    global old_error, Int
 #DEFINICAO DE VARIAVEIS    
     I_ang = 0
     I = 0
