@@ -69,7 +69,7 @@ def timerCallBack(event):
         
         scan_len = len(scan.ranges)
         
-        if not(scan_len > 0):
+        if scan_len > 0:
             yaw = getAngle(odom)
             
             ind = scan.ranges.index(min(scan.ranges))
