@@ -182,12 +182,16 @@ def timerCallBack(event):
     estado = 1
     error = 360
     msg = Twist()
+    scan_len = len(scan.ranges)
+    
+    if not(scan_len > 0):
+        control = 0
+        msg.angular.z = 0
+        
     
     
     if estado == 1:
-        scan_len = len(scan.ranges)
-
-        if scan_len > 0:
+        if min(scan.ranges[scan_len-10 : scan_len+10]) < 100:
             yaw = getAngle(odom)
             dir_obj = min(scan.ranges[scan_len-10 : scan_len+10])
             
@@ -195,7 +199,6 @@ def timerCallBack(event):
             setpoint *= 200 #interpolacao
             setpoint -= 100 #interpolacao
         
-            
             ind = scan.ranges.index(min(scan.ranges))
             inc = 2*math.pi / scan_len
             ang = (ind * inc * 180.0/math.pi) + yaw
@@ -225,6 +228,7 @@ def timerCallBack(event):
                 control = 1
             elif control < -1:
                 control = -1
+            
         else:
             if min(scan.ranges[scan_len-15 : scan_len+15]) > 100: #se nao enncontrou o objeto roda ate achar
                 msg.angular.z = 0.15
