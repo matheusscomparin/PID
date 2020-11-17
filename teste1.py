@@ -264,10 +264,10 @@ def timerCallBack(event):
                 delta_e = error - old_error
                 old_error = error
                  
-                P = kp*error
+                P = kp_anda*error
                 Int += error*tempo_loop
-                I = Int * ki
-                D = delta_e * kd
+                I = Int * ki_anda
+                D = delta_e * kd_anda
                 
                 control = P+I+D
                 if control > 1:
