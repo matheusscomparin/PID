@@ -101,7 +101,8 @@ def timerCallBack(event):
         scan_len = len(scan.ranges)
         if scan_len > 0:
             real_dist = min(scan.ranges[scan_len-10 : scan_len+10])
-
+            
+            error = -(setpoint - real_dist)
             delta_e = error - old_error
             old_error = error
              
