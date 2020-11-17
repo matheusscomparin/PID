@@ -120,7 +120,7 @@ def timerCallBack(event):
             print('SEGUNDO ESTADO')
             
     
-    elif estado == 2:
+    if estado == 2:
         print('COMECA ANDAR')
         read = min(scan.ranges)
         setpoint = 0.5 # 50 cm do objeto
