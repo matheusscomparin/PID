@@ -7,13 +7,13 @@ import math
 
 V_Mat = [2018000309, 2016006869, 2017009838, 34219,  2017003253]
 
-kp = 0.01
-ki = 0.0001
+kp = 1
+ki = 1
 Int = 0
-kd = 0.01
+kd = 1
 old_error = 0
 
-T = 0.1
+
 
 odom = Odometry()
 scan = LaserScan()
@@ -151,6 +151,6 @@ pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
 odom_sub = rospy.Subscriber('/odom', Odometry, odomCallBack)
 scan_sub = rospy.Subscriber('/scan', LaserScan, scanCallBack)
 
-timer = rospy.Timer(rospy.Duration(T), timerCallBack)
+timer = rospy.Timer(rospy.Duration(tempo_loop), timerCallBack)
 
 rospy.spin()
