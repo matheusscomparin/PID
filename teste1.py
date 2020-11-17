@@ -43,23 +43,6 @@ def timerCallBack(event):
     global kp, ki, kd
     global Int, old_error
     estado = 1
-    """
-    yaw = getAngle(odom)
-    setpoint = -45
-    error = (setpoint - yaw)
-    
-    if abs(error) > 180:
-        if setpoint < 0:
-            error += 360 
-        else:
-            error -= 360
-    """
-    """
-    setpoint = (-1,-1)
-    position = odom.pose.pose.position
-    dist = setpoint[0] - position.x #math.sqrt((setpoint[0] - position.x)**2 + (setpoint[1] - position.y) **2)
-    error = dist
-    """
     
     if estado == 1:
         setpoint = 0.5
