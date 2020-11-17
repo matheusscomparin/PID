@@ -230,11 +230,11 @@ def timerCallBack(event):
                 control = -1
             
         else:
-            if min(scan.ranges[scan_len-15 : scan_len+15]) > 100: #se nao enncontrou o objeto roda ate achar
+            if min(scan.ranges[scan_len-15 : scan_len+15]) < 100: #se nao enncontrou o objeto roda ate achar
                 msg.angular.z = 0.15
             else:
                 msg.angular.z = 0.3
-            control = 0   
+                control = 0   
             print('rodando')
         
         
