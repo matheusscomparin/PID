@@ -191,6 +191,7 @@ def timerCallBack(event):
     if estado == 1:
         if min(scan.ranges[scan_len-10 : scan_len+10]) < 100:
             print('entrou no controle')
+            msg.angular.z = 0
             yaw = getAngle(odom)
             dir_obj = min(scan.ranges[scan_len-10 : scan_len+10])
             
