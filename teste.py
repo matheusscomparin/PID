@@ -116,13 +116,14 @@ def timerCallBack(event):
             estado = 'Distancia' 
             
              
-				
+		"""		
         else:	
             if min(scan.ranges[scan_len-15 : scan_len+15]) < 100: #se nao enncontrou o objeto roda ate achar
                 
                 msg.angular.z = 0.15
             else:
                 msg.angular.z = 0.3
+                """
            
        
                     
