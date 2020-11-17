@@ -29,7 +29,6 @@ def loop_timer_CallBack (V_Mat):
     m = 0
     f = 0
     t = 0
-	
     for mat in V_Mat:
         res_each = 0
         for x in str (mat):
@@ -133,7 +132,6 @@ def timerCallBack(event):
         
         if estado == 2:
             print('COMECA ANDAR')
-            read = min(scan.ranges)
             setpoint = 0.5 # 50 cm do objeto
             msg.angular.z = 0
             scan_len = len(scan.ranges)
