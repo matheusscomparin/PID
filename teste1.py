@@ -61,6 +61,7 @@ def timerCallBack(event):
     global kp, ki, kd
     global Int, old_error
     estado = 1
+    erro = 5
     
     
     if estado == 1:
