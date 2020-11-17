@@ -5,6 +5,7 @@ from sensor_msgs.msg import LaserScan
 import tf
 import math
 
+V_Mat = [2018000309, 2016006869, 2017009838, 34219,  2017003253]
 
 kp = 0.01
 ki = 0.0001
@@ -20,6 +21,26 @@ scan = LaserScan()
 rospy.init_node('cmd_node')
 
 # Auxiliar functions ------------------------------------------------
+def loop_timer_CallBack (V_Mat): 
+    global mat
+    n = len(V_Mat)
+    res_each = 0
+    m = 0
+    f = 0
+    t = 0
+	
+    for mat in V_Mat:
+        res_each = 0
+        for x in str (mat):
+            res_each = res_each + int(x)
+            m = m+res_each
+    m = float (m)/n
+    f = m
+    t = 1/f
+    return t
+    
+tempo_loop = loop_timer_CallBack(V_Mat)
+
 def getAngle(msg):
     quaternion = msg.pose.pose.orientation
     quat = [quaternion.x, quaternion.y, quaternion.z, quaternion.w]
