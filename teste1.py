@@ -13,7 +13,7 @@ Int = 0
 kd = 0.01
 old_error = 0
 estado = 1
-kp_anda = 0.08
+kp_anda = 0.15
 ki_anda = 0.001
 kd_anda = 0.01
 odom = Odometry()
@@ -116,9 +116,9 @@ def timerCallBack(event):
                 
             else:
                 if min(scan.ranges[scan_len-15 : scan_len+15]) < 100: #se nao enncontrou o objeto roda ate achar
-                    control = 0.15
+                    control = -0.15
                 else:
-                    control = 0.5
+                    control = -0.5
                 print('rodando')
             
             
