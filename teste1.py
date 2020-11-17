@@ -109,13 +109,14 @@ def timerCallBack(event):
         msg.angular.z = control
         pub.publish(msg)
         
-        if abs(error) < 100:
+        if abs(error) < 1:
             print('SEGUNDO ESTADO')
             Int = 0
             estado = 2
             
     
     elif estado == 2:
+        print('COMECA ANDAR')
         read = min(scan.ranges)
         setpoint = 0.5 # 50 cm do objeto
         msg.angular.z = 0
