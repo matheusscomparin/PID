@@ -108,9 +108,9 @@ def timerCallBack(event):
         pub.publish(msg)
         
         if abs(error) < 1:
-            print('SEGUNDO ESTADO')
             Int = 0
             estado = 2
+            print('SEGUNDO ESTADO')
             
     
     elif estado == 2:
