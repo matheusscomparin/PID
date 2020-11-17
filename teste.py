@@ -5,134 +5,6 @@ from sensor_msgs.msg import LaserScan
 import tf
 import math
 
-
-kp = 1
-ki = 0.5
-Int = 0
-kd = 0.5
-old_error = 0
-
-T = 0.1
-
-odom = Odometry()
-scan = LaserScan()
-
-rospy.init_node('cmd_node')
-
-# Auxiliar functions ------------------------------------------------
-def getAngle(msg):
-    quaternion = msg.pose.pose.orientation
-    quat = [quaternion.x, quaternion.y, quaternion.z, quaternion.w]
-    euler = tf.transformations.euler_from_quaternion(quat)
-    yaw = euler[2]*180.0/math.pi
-    return yaw
-
-# CALLBACKS ---------------------------------------------------------
-def odomCallBack(msg):
-    global odom
-    odom = msg
-    
-def scanCallBack(msg):
-    global scan
-    scan = msg
-#--------------------------------------------------------------------
-
-# TIMER - Control Loop ----------------------------------------------
-def timerCallBack(event):
-    global kp, ki, kd
-    global Intglobal, old_error
-    """
-    yaw = getAngle(odom)
-    setpoint = -45
-    error = (setpoint - yaw)
-    
-    if abs(error) > 180:
-        if setpoint < 0:
-            error += 360 
-        else:
-            error -= 360
-    """
-    """
-    setpoint = (-1,-1)
-    position = odom.pose.pose.position
-    dist = setpoint[0] - position.x #math.sqrt((setpoint[0] - position.x)**2 + (setpoint[1] - position.y) **2)
-    error = dist
-    """
-    
-    if estado == 1:
-        setpoint = 0.5
-        
-        scan_len = len(scan.ranges)
-        
-        if scan_len > 0:
-            yaw = getAngle(odom)
-            
-            ind = scan.ranges.index(min(scan.ranges))
-            inc = 2*math.pi / scan_len
-            ang = (ind * inc * 180.0/math.pi) + yaw
-            if ang > 180:
-                ang -= 360
-                
-            error = (ang - yaw)
-            
-            if abs(error) > 180:
-                if setpoint < 0:
-                    error += 360 
-                else:
-                    error -= 360
-                    
-            print(ang, yaw, error)
-            
-            delta_e = error - old_error
-            old_error = error
-            
-            P = kp*error
-            Int += error*T
-            I = Int * ki
-            D = delta_e * kd
-            
-            control = P+I+D
-            if control > 1:
-                control = 1
-            elif control < -1:
-                control = -1
-        else:
-            control = 0        
-        
-        msg = Twist()
-        msg.angular.z = control
-        pub.publish(msg)
-        
-        if abs(error) < 1:
-            Int = 0
-            estado = 2
-    
-    elif estado == 2:
-        read = min(scan.ranges)
-        
-        # PID
-        
-        msg = Twist()
-        msg.linear.x = control
-        pub.publish(msg)
-        
-
-pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
-odom_sub = rospy.Subscriber('/odom', Odometry, odomCallBack)
-scan_sub = rospy.Subscriber('/scan', LaserScan, scanCallBack)
-
-timer = rospy.Timer(rospy.Duration(T), timerCallBack)
-
-rospy.spin()
-
-'''
-import rospy
-from geometry_msgs.msg import Twist
-from nav_msgs.msg import Odometry
-from sensor_msgs.msg import LaserScan
-import tf
-import math
-
 V_Mat = [2018000309, 2016006869, 2017009838, 34219,  2017003253]
 
 
@@ -194,7 +66,7 @@ def scanCallBack(msg):
 
 # TIMER - Control Loop ----------------------------------------------
 def timerCallBack(event):
-
+    global kp, ki, kd, kp_ang, ki_ang, kd_ang
 #DEFINICAO DE VARIAVEIS    
     I_ang = 0
     I = 0
@@ -208,49 +80,53 @@ def timerCallBack(event):
 
 #ESTADO INICIAL BUSCA ANGULO QUE O ROBO DEVE IR    
     estado = 'Angulo'
-     
-    if not(scan_len > 0):
-        control_ang = 0
-        msg.linear.x = 0
-			
-    elif estado == 'Angulo':
-       
-        if min(scan.ranges[scan_len-10 : scan_len+10]) < 100: # encontrou objeto
-           
-            msg.angular.z = 0
+    if estado == 'Angulo':
+     setpoint = 0.5
+        
+        scan_len = len(scan.ranges)
+        
+        if scan_len > 0:
+            yaw = getAngle(odom)
             
-            dir_obj = min (scan.ranges[scan_len-10 : scan_len+10])
-            
-            setpoint_ang = (dir_obj - scan.ranges[0])/(scan.ranges[scan_len-1] - scan.ranges[0]) #interpolacao
-            setpoint_ang *= 200 #interpolacao
-            setpoint_ang -= 100 #interpolacao
-            
-            error_ang = (setpoint_ang - yaw) #ref - y
-            
-            if abs(error_ang) > 180:
-                if setpoint_ang < 0:
-                    error_ang += 360 
-                else:
-                    error_ang -= 360
-                    
-            P_ang = kp_ang*error_ang #parte proporcional
-            I_ang = I_ang + ki_ang*error_ang  #parte integrativa
-            D_ang = (error_ang - p_erro_ang)*kd_ang #parte derivativa
-            
-            control_ang = P_ang + I_ang + D_ang
-            p_erro_ang = error_ang #erro atual passa ser antigo na proxima vez
-            
-            msg.angular.z = control_ang
-            estado = 'Distancia' 
-            
-             
-				
-        else:	
-            if min(scan.ranges[scan_len-15 : scan_len+15]) > 100: #se nao enncontrou o objeto roda ate achar
+            ind = scan.ranges.index(min(scan.ranges))
+            inc = 2*math.pi / scan_len
+            ang = (ind * inc * 180.0/math.pi) + yaw
+            if ang > 180:
+                ang -= 360
                 
-                msg.angular.z = 0.15
-            else:
-                msg.angular.z = 0.3
+            error = (ang - yaw)
+            
+            if abs(error) > 180:
+                if setpoint < 0:
+                    error += 360 
+                else:
+                    error -= 360
+                    
+            print(ang, yaw, error)
+            
+            delta_e = error - old_error
+            old_error = error
+            
+            P = kp*error
+            Int += error*T
+            I = Int * ki
+            D = delta_e * kd
+            
+            control = P+I+D
+            if control > 1:
+                control = 1
+            elif control < -1:
+                control = -1
+        else:
+            control = 0        
+        
+        msg = Twist()
+        msg.angular.z = control
+        pub.publish(msg)
+        
+        if abs(error) < 1:
+            Int = 0
+            estado = 'Distancia'
          
            
        
@@ -292,4 +168,3 @@ scan_sub = rospy.Subscriber('/scan', LaserScan, scanCallBack)
 timer = rospy.Timer(rospy.Duration(tempo_loop), timerCallBack)
 
 rospy.spin()
-'''
