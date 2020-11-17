@@ -85,7 +85,7 @@ def timerCallBack(event):
         control_ang = 0
         msg.linear.x = 0
 			
-    elif estado == 'Angulo':
+    if estado == 'Angulo':
        
         if min(scan.ranges[scan_len-10 : scan_len+10]) < 100: # encontrou objeto
            
@@ -151,7 +151,7 @@ def timerCallBack(event):
         
        
         msg.linear.x = control
-        #msg.angular.z = control_ang
+        
   
     pub.publish(msg)
     
