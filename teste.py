@@ -75,11 +75,10 @@ def timerCallBack(event):
     p_erro_ang =0
     p_erro =0
     control_ang = 0
-
 #ESTADO INICIAL BUSCA ANGULO QUE O ROBO DEVE IR    
     estado = 'Angulo'
-    if estado == 'Angulo':
-     setpoint = 0.5
+if estado == 'Angulo':
+        setpoint = 0.5
         
         scan_len = len(scan.ranges)
         
@@ -129,7 +128,7 @@ def timerCallBack(event):
            
        
                     
-    if estado == 'Distancia':
+    elif estado == 'Distancia':
         setpoint = 0.5 # 50 cm do objeto
         msg.angular.z = 0
         scan_len = len(scan.ranges)
@@ -153,7 +152,7 @@ def timerCallBack(event):
             control = 0        
         
        
-        msg.linear.x = control
+    msg.linear.x = control
         
   
     pub.publish(msg)
