@@ -16,7 +16,6 @@ estado = 1
 kp_anda = 0.5
 ki_anda = 0.1
 kd_anda = 1
-
 odom = Odometry()
 scan = LaserScan()
 
