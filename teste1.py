@@ -131,6 +131,7 @@ ki = 0.001
 Int = 0
 kd = 0.01
 old_error = 0
+estado = 1
 
 odom = Odometry()
 scan = LaserScan()
@@ -179,7 +180,7 @@ def scanCallBack(msg):
 def timerCallBack(event):
     global kp, ki, kd
     global Int, old_error
-    estado = 1
+    global estado
     error = 360
     msg = Twist()
     scan_len = len(scan.ranges)
