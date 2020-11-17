@@ -14,7 +14,7 @@ kd = 0.01
 old_error = 0
 estado = 1
 kp_anda = 0.5
-ki_anda = 0.01
+ki_anda = 0.3
 kd_anda = 1
 
 odom = Odometry()
