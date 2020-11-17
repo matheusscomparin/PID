@@ -132,6 +132,9 @@ Int = 0
 kd = 0.01
 old_error = 0
 estado = 1
+kp_anda = 1
+ki_anda = 0.01
+kd_anda = 1
 
 odom = Odometry()
 scan = LaserScan()
@@ -232,10 +235,10 @@ def timerCallBack(event):
                     control = -1
                 
             else:
-                #if min(scan.ranges[scan_len-15 : scan_len+15]) < 100: #se nao enncontrou o objeto roda ate achar
-                   # msg.angular.z = 0.15
-                #else:
-                control = 0.3
+                if min(scan.ranges[scan_len-15 : scan_len+15]) < 100: #se nao enncontrou o objeto roda ate achar
+                    control = 0.15
+                else:
+                    control = 0.5
                 print('rodando')
             
             
