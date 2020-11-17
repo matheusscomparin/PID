@@ -62,6 +62,7 @@ def timerCallBack(event):
     global Int, old_error
     estado = 1
     error = 360
+    msg = Twist()
     
     
     if estado == 1:
@@ -102,9 +103,14 @@ def timerCallBack(event):
             elif control < -1:
                 control = -1
         else:
-            control = 0        
+            if min(scan.ranges[scan_len-15 : scan_len+15]) < 100: #se nao enncontrou o objeto roda ate achar
+                msg.angular.z = 0.15
+            else:
+                msg.angular.z = 0.3
+            control = 0   
+            print('rodando')
         
-        msg = Twist()
+        
         msg.angular.z = control
         pub.publish(msg)
         
