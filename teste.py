@@ -87,7 +87,7 @@ def timerCallBack(event):
 			
     elif estado == 'Angulo':
        
-        if min(scan.ranges[scan_len-10 : scan_len+10]) < 100: # encontrou objeto
+         min(scan.ranges[scan_len-10 : scan_len+10]) < 100: # encontrou objeto
            
             msg.angular.z = 0
             
@@ -123,7 +123,7 @@ def timerCallBack(event):
                 msg.angular.z = 0.15
             else:
                 msg.angular.z = 0.3
-                """
+         """
            
        
                     
