@@ -124,11 +124,8 @@ if estado == 'Angulo':
         if abs(error) < 1:
             Int = 0
             estado = 'Distancia'
-         
-           
-       
-                    
-    elif estado == 'Distancia':
+    
+elif estado == 'Distancia':
         setpoint = 0.5 # 50 cm do objeto
         msg.angular.z = 0
         scan_len = len(scan.ranges)
@@ -151,11 +148,10 @@ if estado == 'Angulo':
         else:
             control = 0        
         
-       
-    msg.linear.x = control
+msg.linear.x = control
         
   
-    pub.publish(msg)
+pub.publish(msg)
     
 
 pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
