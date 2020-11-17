@@ -88,7 +88,7 @@ def timerCallBack(event):
         msg.angular.z = control
         pub.publish(msg)
         
-        if abs(error) < 1:
+        if abs(error) < 10:
             Int = 0
             estado = 2
     
