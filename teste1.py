@@ -43,6 +43,8 @@ def timerCallBack(event):
     global kp, ki, kd
     global Int, old_error
     estado = 1
+    msg = Twist()
+    msg.angular.z = 0.5
     
     if estado == 1:
         setpoint = 0.5
@@ -84,7 +86,7 @@ def timerCallBack(event):
         else:
             control = 0        
         
-        msg = Twist()
+       
         msg.angular.z = control
         pub.publish(msg)
         
