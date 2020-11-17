@@ -13,8 +13,6 @@ Int = 0
 kd = 1
 old_error = 0
 
-
-
 odom = Odometry()
 scan = LaserScan()
 
@@ -93,7 +91,7 @@ def timerCallBack(event):
             old_error = error
              
             P = kp*error
-            Int += error*T
+            Int += error*tempo_loop
             I = Int * ki
             D = delta_e * kd
             
@@ -129,7 +127,7 @@ def timerCallBack(event):
             old_error = error
              
             P = kp*error
-            Int += error*T
+            Int += error*tempo_loop
             I = Int * ki
             D = delta_e * kd
             
