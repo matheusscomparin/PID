@@ -292,3 +292,4 @@ scan_sub = rospy.Subscriber('/scan', LaserScan, scanCallBack)
 timer = rospy.Timer(rospy.Duration(tempo_loop), timerCallBack)
 
 rospy.spin()
+'''
