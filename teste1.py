@@ -1,4 +1,4 @@
-
+"""
 import rospy
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
@@ -185,9 +185,15 @@ def timerCallBack(event):
     
     
     if estado == 1:
-        setpoint = 0.5
-        
         scan_len = len(scan.ranges)
+        dir_obj = min (scan.ranges[scan_len-10 : scan_len+10])
+            
+        setpoint = (dir_obj - scan.ranges[0])/(scan.ranges[scan_len-1] - scan.ranges[0]) #interpolacao
+        setpoint *= 200 #interpolacao
+        setpoint -= 100 #interpolacao
+        
+        
+      
         
         if scan_len > 0:
             yaw = getAngle(odom)
@@ -278,4 +284,3 @@ scan_sub = rospy.Subscriber('/scan', LaserScan, scanCallBack)
 timer = rospy.Timer(rospy.Duration(tempo_loop), timerCallBack)
 
 rospy.spin()
-"""
