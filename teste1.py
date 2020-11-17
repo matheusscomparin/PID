@@ -66,7 +66,7 @@ def timerCallBack(event):
                 else:
                     error -= 360
                     
-            print(ang, yaw, error)
+            #print(ang, yaw, error)
             
             delta_e = error - old_error
             old_error = error
@@ -88,9 +88,11 @@ def timerCallBack(event):
         msg.angular.z = control
         pub.publish(msg)
         
-        if abs(error) < 10:
+        if abs(error) < 100:
+            print('SEGUNDO ESTADO')
             Int = 0
             estado = 2
+            
     
     elif estado == 2:
         read = min(scan.ranges)
