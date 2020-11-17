@@ -126,10 +126,10 @@ import math
 
 V_Mat = [2018000309, 2016006869, 2017009838, 34219,  2017003253]
 
-kp = 1
-ki = 1
+kp = 0.01
+ki = 0.001
 Int = 0
-kd = 1
+kd = 0.01
 old_error = 0
 
 odom = Odometry()
