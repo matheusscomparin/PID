@@ -13,9 +13,9 @@ Int = 0
 kd = 0.01
 old_error = 0
 estado = 1
-kp_anda = 0.05
-ki_anda = 0.06
-kd_anda = 0.04
+kp_anda = 0.01
+ki_anda = 0.001
+kd_anda = 0.01
 odom = Odometry()
 scan = LaserScan()
 
