@@ -15,7 +15,7 @@ old_error = 0
 estado = 1
 kp_anda = 0.25
 ki_anda = 0.07
-kd_anda = 1
+kd_anda = 1.5
 odom = Odometry()
 scan = LaserScan()
 
