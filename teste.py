@@ -71,8 +71,6 @@ def timerCallBack(event):
     I_ang = 0
     I = 0
     msg = Twist()
-    yaw = getAngle(odom)
-    scan_len = len(scan.ranges)
 # ERRO ANTERIOR INICIALIZADOS COMO NULO    
     p_erro_ang =0
     p_erro =0
